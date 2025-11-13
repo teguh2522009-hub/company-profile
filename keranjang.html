@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keranjang Belanja | Benih Candi</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+ <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo-area">
+      <img src="images/logo-candi.png" alt="Logo Candi" class="logo-img" />
+      <span class="logo-text">Benih Candi</span>
+    </div>
+    <nav class="nav-links">
+      <!-- PERUBAHAN: Menambahkan kelas 'nav-link' untuk konsistensi -->
+      <a href="index.html" class="nav-link">Beranda</a>
+      <a href="index.html#artikel" class="nav-link">Artikel</a>
+      <a href="index.html#produk" class="nav-link">Daftar Produk</a>
+      <a href="login.html" class="nav-link">Login</a>
+    </nav>
+    <div class="nav-icons">
+      <!-- PERUBAHAN: Menandai ikon keranjang sebagai aktif -->
+      <a href="keranjang.html" title="Keranjang" class="cart-icon active">
+       <a href="keranjang.html" title="Keranjang" class="cart-icon">
+  <i class="fa-solid fa-cart-shopping"></i>
+      <a href="titik3.html" title="Lainnya"><i class="fa fa-ellipsis-v"></i></a>
+    </div>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <div class="container">
+      <a href="index.html">Beranda</a>
+      <span class="separator">/</span>
+      <span class="current">Keranjang Belanja</span>
+    </div>
+  </div>
+
+  <!-- CART SECTION -->
+  <main class="cart-section">
+    <div class="container">
+      <h1>Keranjang Belanja Anda</h1>
+      
+      <div class="cart-wrapper">
+        <div class="cart-items">
+          <div class="cart-header">
+            <h3>Produk</h3>
+            <h3>Harga</h3>
+            <h3>Jumlah</h3>
+            <h3>Total</h3>
+          </div>
+          
+          <div class="cart-container">
+            <!-- Cart items will be dynamically inserted here by script.js -->
+          </div>
+          
+          <div class="cart-actions">
+            <a href="index.html#produk" class="btn-secondary">
+              <i class="fa fa-arrow-left"></i> Lanjut Belanja
+            </a>
+            <button class="btn-clear" onclick="clearCart()">
+              <i class="fa fa-trash"></i> Kosongkan Keranjang
+            </button>
+          </div>
+        </div>
+        
+        <div class="cart-summary">
+          <h3>Ringkasan Belanja</h3>
+          
+          <div class="summary-row">
+            <span>Subtotal:</span>
+            <span class="subtotal">Rp 0</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Biaya Pengiriman:</span>
+            <span class="shipping">Dihitung saat checkout</span>
+          </div>
+          
+          <div class="summary-divider"></div>
+          
+          <div class="summary-row total">
+            <span>Total:</span>
+            <span class="total-amount">Rp 0</span>
+          </div>
+          
+          <div class="promo-code">
+            <input type="text" placeholder="Kode promo">
+            <button class="btn-apply">Terapkan</button>
+          </div>
+          
+          <button class="checkout-btn" onclick="proceedToCheckout()">
+            Lanjut ke Pembayaran
+          </button>
+          
+          <div class="secure-checkout">
+            <i class="fa fa-lock"></i>
+            <span>Checkout aman dan terjamin</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- RECOMMENDATIONS -->
+  <section class="recommendations">
+    <div class="container">
+      <h3>Produk yang Mungkin Anda Suka</h3>
+      <div class="recommendation-grid">
+        <div class="rec-card">
+          <img src="images/produk/produk1.jpg" alt="Produk">
+          <h4>Benih Cabai Rawit</h4>
+          <span class="price">Rp 75.000</span>
+          <button class="btn-cart" data-name="Benih Cabai Rawit Hibrida" data-price="75000" data-id="produk1" data-img="images/produk/produk1.jpg">Tambah</button>
+        </div>
+        <div class="rec-card">
+          <img src="images/produk/produk2.jpg" alt="Produk">
+          <h4>Benih Tomat Permata</h4>
+          <span class="price">Rp 65.000</span>
+          <button class="btn-cart" data-name="Benih Tomat Permata" data-price="65000" data-id="produk2" data-img="images/produk/produk2.jpg">Tambah</button>
+        </div>
+        <div class="rec-card">
+          <img src="images/produk/produk3.png" alt="Produk">
+          <h4>Benih Terong Ungu</h4>
+          <span class="price">Rp 55.000</span>
+          <button class="btn-cart" data-name="Benih Terong Ungu" data-price="55000" data-id="produk3" data-img="images/produk/produk3.png">Tambah</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <!-- Kolom 1: Logo & Deskripsi -->
+      <div class="footer-col">
+        <div class="footer-logo">
+          <img src="images/logo-candi.png" alt="Logo Benih Candi">
+          <h3>Benih Candi</h3>
+        </div>
+        <p>Menyediakan benih unggul untuk masa depan pertanian Indonesia yang lebih baik.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <!-- Kolom 2: Quick Links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <span class="footer-underline"></span>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="#artikel">Artikel</a></li>
+          <li><a href="#produk">Produk</a></li>
+          <li><a href="titik3.html">Tentang Kami</a></li>
+        </ul>
+      </div>
+
+      <!-- Kolom 3: Kontak -->
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <span class="footer-underline"></span>
+        <p>Alamat Kami</p>
+        <p><i class="fa fa-phone"></i> +62 813-2786-7831</p>
+        <p><i class="fa fa-envelope"></i> info@benihcandi.com</p>
+      </div>
+
+      <!-- Kolom 4: Newsletter -->
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <span class="footer-underline"></span>
+        <p>Dapatkan tips bertani dan promo terbaru dari kami</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Email Anda" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <p>&copy; 2025 Benih Candi. Semua Hak Dilindungi.</p>
+    </div>
+  </div>
+</footer>

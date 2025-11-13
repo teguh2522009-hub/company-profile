@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajukan Pertanyaan - Benih Candi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* =========================
+           VARIABLES / THEME
+           ========================= */
+        :root {
+            /* Warna utama */
+            --green-900: #163b16;    /* hijau gelap (header, teks penting) */
+            --green-700: #2b7a0b;    /* hijau utama (tombol, aksen) */
+            --green-500: #59a84a;    /* hijau medium (hover, sekunder) */
+            --green-300: #dff7e3;    /* latar lembut hijau */
+            --accent-yellow: #ffeb3b;/* aksen kuning untuk highlight */
+            --muted: #6b6b6b;        /* teks sekunder */
+            --bg: #ffffff;           /* background utama */
+            --soft-bg: #f6fff9;      /* latar section */
+            --border: #e6e6e6;       /* border dan garis pemisah */
+
+            /* Typography */
+            --font-sans: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            --text: #12210f;
+
+            /* Spacing scale */
+            --space-xxs: 4px;
+            --space-xs: 8px;
+            --space-sm: 12px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 40px;
+
+            /* Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+
+            /* Shadows */
+            --shadow-sm: 0 3px 8px rgba(228, 228, 228, 0.06);
+            --shadow-md: 0 8px 24px rgba(13, 36, 13, 0.08);
+        }
+
+        /* =========================
+           BASE RESET & TYPOGRAPHY
+           ========================= */
+        * { 
+            box-sizing: border-box; 
+            -webkit-font-smoothing: antialiased; 
+            -moz-osx-font-smoothing: grayscale; 
+        }
+        
+        html, body {
+            height: 100%;
+        }
+        
+        body {
+            margin: 0;
+            font-family: var(--font-sans);
+            color: var(--text);
+            background: var(--soft-bg);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* =========================
+           NAVBAR / HEADER
+           ========================= */
+        .header-spacer {
+            height: 72px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            background: var(--green-900);
+            color: #fff;
+            z-index: 1100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .back-btn {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .nav-links a {
+            color: var(--bg);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--accent-yellow);
+            text-decoration: none;
+        }
+        
+        .nav-links a.active {
+            color: var(--accent-yellow);
+            font-weight: 600;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            width: 30px;
+            height: 3px;
+            background-color: var(--accent-yellow);
+            border-radius: 3px;
+            transform: translateX(-50%) scaleX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-links a.active::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .nav-icons a {
+            color: var(--bg); 
+            font-size: 1.1rem; 
+            padding: 8px; 
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-icons a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--accent-yellow);
+        }
+        
+        .nav-icons a.active {
+            color: var(--accent-yellow);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+        
+        .hamburger span {
+            width: 24px;
+            height: 3px;
+            background-color: #fff;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                right: 0; 
+                background: var(--green-900); 
+                flex-direction: column; 
+                padding: 1rem; 
+                gap: 0;
+            }
+            
+            .nav-links a {
+                padding: 12px; 
+                border-radius: 0;
+            }
+            
+            .nav-links a.active::after {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .navbar.nav-open .nav-links {
+                display: flex;
+            }
+            
+            .navbar.nav-open .hamburger span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            
+            .navbar.nav-open .hamburger span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .navbar.nav-open .hamburger span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+        }
+
+        /* =========================
+           FORM SECTION
+           ========================= */
+        .form-section {
+            padding: 100px 20px 60px;
+            min-height: calc(100vh - 72px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-container {
+            background: var(--bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h1 {
+            color: var(--green-900);
+            font-size: clamp(24px, 4vw, 32px);
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--green-900);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-sans);
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: var(--bg);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--green-700);
+            box-shadow: 0 0 0 3px rgba(43, 122, 11, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-note {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-note i {
+            color: var(--green-500);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--green-700);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .btn-submit:hover {
+            background: var(--green-500);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(43, 122, 11, 0.2);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .btn-submit.loading i.fa-paper-plane {
+            display: none;
+        }
+
+        .btn-submit.loading .spinner {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+        }
+
+        /* =========================
+           TOAST NOTIFICATION
+           ========================= */
+        .toast {
+            position: fixed;
+            right: 20px;
+            top: 100px;
+            padding: 16px 20px;
+            border-radius: var(--radius-sm);
+            color: #fff;
+            z-index: 2000;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 350px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(90deg, var(--green-700), var(--green-500));
+        }
+
+        .toast.error {
+            background: linear-gradient(90deg, #e63946, #d62828);
+        }
+
+        .toast i {
+            font-size: 20px;
+        }
+
+        /* =========================
+           FOOTER
+           ========================= */
+        .footer {
+            background: var(--green-900);
+            color: #fff;
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .footer-logo h3 {
+            margin: 0;
+            color: #fff;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: #fff;
+            font-size: 1.2rem;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-yellow);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            margin-top: 20px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
+
+        /* =========================
+           RESPONSIVE
+           ========================= */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .toast {
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+             <header class="header">
+    <a href="titik3.html" class="back-btn">←</a>
+        
+    
+        
+    
+        
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="header-spacer"></div>
+
+    <!-- FORM SECTION -->
+    <section class="form-section">
+        <div class="form-container">
+            <div class="form-header">
+                <h1>AJUKAN PERTANYAAN</h1>
+                <p>Kami siap membantu menjawab pertanyaan Anda</p>
+            </div>
+            
+            <form id="questionForm">
+                <div class="form-group">
+                    <label for="nama">Nama *</label>
+                    <input type="text" id="nama" name="nama" required placeholder="Masukkan nama lengkap Anda">
+                </div>
+                
+                <div class="form-group">
+                    <label for="kota">Kota *</label>
+                    <input type="text" id="kota" name="kota" required placeholder="Masukkan kota asal Anda">
+                </div>
+                
+                <div class="form-group">
+                    <label for="wa">No. WA *</label>
+                    <input type="tel" id="wa" name="wa" required placeholder="Contoh: 08123456789" pattern="[0-9]{10,13}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required placeholder="email@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="topik">Topik Pertanyaan *</label>
+                    <select id="topik" name="topik" required>
+                        <option value="">Pilih topik pertanyaan...</option>
+                        <option value="produk">Informasi Produk</option>
+                        <option value="pemesanan">Cara Pemesanan</option>
+                        <option value="pengiriman">Pengiriman</option>
+                        <option value="pembayaran">Metode Pembayaran</option>
+                        <option value="garansi">Garansi & Retur</option>
+                        <option value="lainnya">Lainnya</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pertanyaan">Pertanyaan *</label>
+                    <textarea id="pertanyaan" name="pertanyaan" required placeholder="Tuliskan pertanyaan Anda secara detail di sini..."></textarea>
+                </div>
+                
+                <div class="form-note">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Note : WA dan Email tidak akan dipublikasikan</span>
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>KIRIM</span>
+                    <div class="spinner"></div>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/logo-candi.png" alt="Logo">
+                <h3>Benih Candi</h3>
+            </div>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Benih Candi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Pesan berhasil dikirim!</span>
+    </div>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navbar = document.querySelector('.navbar');
+        
+        hamburger.addEventListener('click', () => {
+            navbar.classList.toggle('nav-open');
+        });
+
+        // Form Submission
+        const form = document.getElementById('questionForm');
+        const submitBtn = document.querySelector('.btn-submit');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = `toast ${type}`;
+            
+            // Update icon based on type
+            const icon = toast.querySelector('i');
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-circle';
+            }
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePhone(phone) {
+            const re = /^[0-9]{10,13}$/;
+            return re.test(phone);
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // Validation
+            if (!data.nama.trim()) {
+                showToast('Nama harus diisi', 'error');
+                return;
+            }
+            
+            if (!data.kota.trim()) {
+                showToast('Kota harus diisi', 'error');
+                return;
+            }
+            
+            if (!validatePhone(data.wa)) {
+                showToast('Nomor WA tidak valid (10-13 digit angka)', 'error');
+                return;
+            }
+            
+            if (!validateEmail(data.email)) {
+                showToast('Email tidak valid', 'error');
+                return;
+            }
+            
+            if (!data.topik) {
+                showToast('Pilih topik pertanyaan', 'error');
+                return;
+            }
+            
+            if (!data.pertanyaan.trim() || data.pertanyaan.length < 10) {
+                showToast('Pertanyaan minimal 10 karakter', 'error');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Success
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+                
+                showToast('Pertanyaan Anda berhasil dikirim! Kami akan segera menghubungi Anda.', 'success');
+                
+                // Reset form
+                form.reset();
+                
+                // Log data (in real app, send to server)
+                console.log('Form data submitted:', data);
+            }, 2000);
+        });
+
+        // Phone number formatting
+        const waInput = document.getElementById('wa');
+        waInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.startsWith('0')) {
+                value = '62' + value.substring(1);
+            }
+            e.target.value = value;
+        });
+
+        // Character counter for textarea
+        const pertanyaanTextarea = document.getElementById('pertanyaan');
+        const charCounter = document.createElement('div');
+        charCounter.style.fontSize = '0.85rem';
+        charCounter.style.color = 'var(--muted)';
+        charCounter.style.textAlign = 'right';
+        charCounter.style.marginTop = '5px';
+        pertanyaanTextarea.parentNode.appendChild(charCounter);
+
+        pertanyaanTextarea.addEventListener('input', (e) => {
+            const length = e.target.value.length;
+            charCounter.textContent = `${length} karakter`;
+            
+            if (length < 10) {
+                charCounter.style.color = 'var(--muted)';
+            } else {
+                charCounter.style.color = 'var(--green-500)';
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(22, 59, 22, 0.95)';
+                navbar.style.backdropFilter = 'blur(10px)';
+            } else {
+                navbar.style.background = 'var(--green-900)';
+                navbar.style.backdropFilter = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
